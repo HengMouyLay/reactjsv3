@@ -4,12 +4,12 @@ pipeline{
             stage("git clone"){
                 steps{
                     echo 'Hello clone'
-                }
-            stage("git build"){
+                }           
+            }
+             stage("git build"){
                 steps{
                      echo 'Hello build'
                 }
-            }
             }
         }
     
