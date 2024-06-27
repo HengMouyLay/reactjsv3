@@ -1,14 +1,19 @@
 pipeline{
     agent any
         stages{
-            stage("git clone"){
+            stage("Clone"){
                 steps{
-                    echo 'Hello clone'
+                    echo 'clone prject reactjsv3'
                 }           
             }
-             stage("git build"){
+             stage("Build"){
                 steps{
-                     echo 'Hello build'
+                     echo 'build project reactjs'
+                }
+            }
+             stage("Deploy"){
+                steps{
+                     echo 'build project reactjs'
                 }
             }
         }
