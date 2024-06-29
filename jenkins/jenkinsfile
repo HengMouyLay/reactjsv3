@@ -7,10 +7,20 @@ pipeline{
             }
         }
        
-        stage('docker pipeline'){
-            steps{
-                echo 'Building docker image'
+       stage('Build Docker Image') {
+            steps {
+                script {
+                    docker.build('username/repository:latest')
+                }
             }
         }
+   stage('Push Docker Image') {
+            steps {
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', dockerhub) {
+                        docker.image('username/repository:latest').push()
+                    }
+                }
+            }
     }
 }
