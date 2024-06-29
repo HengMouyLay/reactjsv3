@@ -10,7 +10,7 @@ pipeline{
        stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build('username/repository:1.0')
+                    docker.build('hengmouylay/react_js:1.0')
                 }
             }
         }
@@ -18,7 +18,7 @@ pipeline{
             steps {
                 script {
                     docker.withRegistry('https://index.docker.io/v1/', dockerhub) {
-                        docker.image('username/repository:1.0').push()
+                        docker.image('hengmouylay/react_js:1.0').push()
                     }
                 }
             }
