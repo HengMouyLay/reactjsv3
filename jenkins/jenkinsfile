@@ -3,7 +3,7 @@ pipeline{
     stages{
         stage('Get Resource from git'){
             steps{
-                git 'https://github.com/HengMouyLay/reactjsv3.git'
+                git branch: 'main', url: 'https://github.com/HengMouyLay/reactjsv3.git'
             }
         }
        
