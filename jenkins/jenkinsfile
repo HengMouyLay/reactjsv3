@@ -1,5 +1,8 @@
 pipeline{
-    agent{    }
+    agent{ 
+        image 'node"14'
+        args '-u root'
+}
     tools{
         nodejs 'node-18.9.1'
     }
