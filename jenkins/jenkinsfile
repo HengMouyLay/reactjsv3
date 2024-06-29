@@ -6,13 +6,7 @@ pipeline{
                 git 'https://github.com/HengMouyLay/reactjsv3.git'
             }
         }
-        stage('test'){
-            steps{
-                sh ''' 
-                    node -v
-                '''
-            }
-        }
+       
         stage('docker pipeline'){
             steps{
                 echo 'Building docker image'
