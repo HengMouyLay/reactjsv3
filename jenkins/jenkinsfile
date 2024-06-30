@@ -20,7 +20,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', DOCKER_HUB_CREDENTIALS) {
-                        def customImage = docker.build("${IMAGE_NAME}:${env.BUILD_NUMBER}}")
+                        def customImage = docker.build("${IMAGE_NAME}:${env.BUILD_NUMBER}")
                         customImage.push()
                     }
                      def containerExists = sh(script: "docker ps -a --filter name=${CONTAINER_NAME} --format '{{.Names}}'", returnStatus: true)                    
