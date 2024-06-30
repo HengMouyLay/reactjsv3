@@ -27,15 +27,13 @@ pipeline {
                     if (containerExists == 0) {
                     sh '''      
                        docker stop ${CONTAINER_NAME}
-                       docker rm ${CONTAINER_NAME}
+                       docker rm ${CONTAINER_NAME}                       
+                        '''
+                       } 
+                     sh '''    
                        docker run -d -p 1989:80 --name ${CONTAINER_NAME} hengmouylay/react_js:${IMAGE_TAG}
                         curl ifconfig.me 
                         '''
-                       } 
-                    else{
-                        docker run -d -p 1989:80 --name ${CONTAINER_NAME} hengmouylay/react_js:${IMAGE_TAG}
-                        curl ifconfig.me 
-                    }
 }
             }
         }
