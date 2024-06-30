@@ -23,7 +23,7 @@ pipeline {
                         customImage.push()
                     }
                     sh ''' 
-                       docker run -d -p 1989:80 --name reactjs3 reactjsv2:1.2
+                       docker run -d -p 1989:80 --name reactjs4 reactjsv2:1.2
                         curl ifconfig.me 
                         '''
                 }
