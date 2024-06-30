@@ -1,4 +1,3 @@
-                        docker push $USER/reactjs:1.4 .
 pipeline {
     agent any
 
