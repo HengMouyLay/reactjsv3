@@ -6,6 +6,7 @@ pipeline {
         DOCKER_HUB_CREDENTIALS = 'dockerhub'
         IMAGE_NAME = 'hengmouylay/react_js'
         IMAGE_TAG = '3'
+        CONTAINER_NAME = 'reactjs4' // Replace with your container name
     }
 
     stages {
@@ -22,13 +23,15 @@ pipeline {
                         def customImage = docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
                         customImage.push()
                     }
+                     def containerExists = sh(script: "docker ps -a --filter name=${CONTAINER_NAME} --format '{{.Names}}'", returnStatus: true)                    
+                    if (containerExists == 0) {
                     sh '''      
-                       docker stop reactjs4
-                       docker rm reactjs4
-                       docker run -d -p 1989:80 --name reactjs4 hengmouylay/react_js:${IMAGE_TAG}
+                       docker stop ${CONTAINER_NAME}
+                       docker rm ${CONTAINER_NAME}
+                       docker run -d -p 1989:80 --name ${CONTAINER_NAME} hengmouylay/react_js:${IMAGE_TAG}
                         curl ifconfig.me 
                         '''
-                        
+                       } 
 }
             }
         }
