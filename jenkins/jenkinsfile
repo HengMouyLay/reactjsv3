@@ -7,6 +7,10 @@ pipeline {
         IMAGE_NAME = 'hengmouylay/react_js'
         IMAGE_TAG = "${env.BUILD_NUMBER}"
         CONTAINER_NAME = 'reactjs4' // Replace with your container name
+
+        TELEGRAM_TOKEN = '6964464848:AAE2euB4z54TWaameghHukIq61fw0zFgdvM'
+        TELEGRAM_CHAT_ID = '498606323'
+        TELEGRAM_API_URL = "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage"
     }
 
     stages {
@@ -34,6 +38,16 @@ pipeline {
                        docker run -d -p 1989:80 --name ${CONTAINER_NAME} hengmouylay/react_js:${IMAGE_TAG}
                         curl ifconfig.me 
                         '''
+                     def message = "Build #${env.BUILD_NUMBER} of ${env.JOB_NAME} is complete."
+                    def response = sh(
+                        script: """
+                        curl -s -X POST ${TELEGRAM_API_URL} \
+                        -d chat_id=${TELEGRAM_CHAT_ID} \
+                        -d text="${message}"
+                        """,
+                        returnStdout: true
+                    ).trim()
+                    echo "Telegram response: ${response}"
 }
             }
         }
