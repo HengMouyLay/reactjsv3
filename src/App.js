@@ -7,7 +7,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-         <code> wellome to devops reactjs 3</code> and save to reload.
+         <code> WELL COME</code> and save to reload.
         </p>
         <a
           className="App-link"
