@@ -6,7 +6,7 @@ pipeline {
         DOCKER_HUB_CREDENTIALS = 'dockerhub'
         IMAGE_NAME = 'hengmouylay/react_js'
         IMAGE_TAG = "${env.BUILD_NUMBER}"
-        CONTAINER_NAME = 'reactjs4' // Replace with your container name
+        CONTAINER_NAME = 'reactjs' // Replace with your container name
 
         TELEGRAM_TOKEN = '6964464848:AAE2euB4z54TWaameghHukIq61fw0zFgdvM'
         TELEGRAM_CHAT_ID = '498606323'
