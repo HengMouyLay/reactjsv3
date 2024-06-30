@@ -22,12 +22,12 @@ pipeline {
                         def customImage = docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
                         customImage.push()
                     }
-                    sh ''' 
-                        docker stop reactjs4
-                       docker rm reactjs4
+                    sh '''                         
                        docker run -d -p 1989:80 --name reactjs4 reactjsv2
                         curl ifconfig.me 
                         '''
+                        //docker stop reactjs4
+                      // docker rm reactjs4
 }
             }
         }
