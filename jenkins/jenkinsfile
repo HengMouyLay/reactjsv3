@@ -5,7 +5,7 @@ pipeline {
         // Define your Docker Hub credentials ID
         DOCKER_HUB_CREDENTIALS = 'dockerhub'
         IMAGE_NAME = 'hengmouylay/react_js'
-        IMAGE_TAG = '3'
+        IMAGE_TAG = env.BUILD_NUMBER
         CONTAINER_NAME = 'reactjs4' // Replace with your container name
     }
 
