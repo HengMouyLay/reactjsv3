@@ -1,26 +1,50 @@
 pipeline {
     agent any
+
+    environment {
+        DOCKER_HUB_CREDENTIALS = credentials('dockerhub')
+        // Define the Docker image name and tag
+        IMAGE_NAME = 'hengmouylay/reactjs'
+        IMAGE_TAG = 'latest'
+    }
+
     stages {
-        stage('git clone') {
+        stage('Clone Repository') {
             steps {
+                // Checkout the code from your GitHub repository
                 git branch: 'main', url: 'https://github.com/HengMouyLay/reactjsv3.git'
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-                    sh """
-                        docker login -p $PASS -u $USER
-                        docker build -t $USER/reactjs:1.4 .
-                        docker push $USER/reactjs:1.4 .
-                    """
- 
-}
+                // Build the Docker image
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', DOCKER_HUB_CREDENTIALS) {
+                        def customImage = docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
+                    }
                 }
             }
         }
 
-        
+        stage('Push Docker Image') {
+            steps {
+                // Push the Docker image to Docker Hub
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', DOCKER_HUB_CREDENTIALS) {
+                        customImage.push("${IMAGE_TAG}")
+                    }
+                }
+            }
+        }
     }
 
+    post {
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed!'
+        }
+    }
+}
