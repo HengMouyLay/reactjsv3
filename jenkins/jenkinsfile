@@ -5,7 +5,7 @@ pipeline {
         // Define your Docker Hub credentials ID
         DOCKER_HUB_CREDENTIALS = 'dockerhub'
         IMAGE_NAME = 'hengmouylay/react_js'
-        IMAGE_TAG = env.BUILD_NUMBER
+        //IMAGE_TAG = env.BUILD_NUMBER
         CONTAINER_NAME = 'reactjs4' // Replace with your container name
     }
 
@@ -20,7 +20,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', DOCKER_HUB_CREDENTIALS) {
-                        def customImage = docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
+                        def customImage = docker.build("${IMAGE_NAME}:${env.BUILD_NUMBER}}")
                         customImage.push()
                     }
                      def containerExists = sh(script: "docker ps -a --filter name=${CONTAINER_NAME} --format '{{.Names}}'", returnStatus: true)                    
@@ -28,7 +28,7 @@ pipeline {
                     sh '''      
                        docker stop ${CONTAINER_NAME}
                        docker rm ${CONTAINER_NAME}
-                       docker run -d -p 1989:80 --name ${CONTAINER_NAME} hengmouylay/react_js:${IMAGE_TAG}
+                       docker run -d -p 1989:80 --name ${CONTAINER_NAME} hengmouylay/react_js:${env.BUILD_NUMBER}
                         curl ifconfig.me 
                         '''
                        } 
