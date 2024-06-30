@@ -25,10 +25,10 @@ pipeline {
                     sh ''' 
                         docker stop reactjs4
                        docker rm reactjs4
-                       docker run -d -p 1989:80 --name reactjs4 reactjsv2:${IMAGE_TAG}
+                       docker run -d -p 1989:80 --name reactjs4 reactjsv2
                         curl ifconfig.me 
                         '''
-                }
+}
             }
         }
     }
