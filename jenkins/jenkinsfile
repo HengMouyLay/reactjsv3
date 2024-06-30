@@ -1,38 +1,27 @@
+                        docker push $USER/reactjs:1.4 .
 pipeline {
     agent any
 
     environment {
-        DOCKER_HUB_CREDENTIALS = credentials('dockerhub')
-        // Define the Docker image name and tag
-        IMAGE_NAME = 'hengmouylay/reactjs'
-        IMAGE_TAG = 'latest'
+        // Define your Docker Hub credentials ID
+        DOCKER_HUB_CREDENTIALS = 'dockerhub'
+        IMAGE_NAME = 'hengmouylay/react_js'
+        IMAGE_TAG = '1'
     }
 
     stages {
         stage('Clone Repository') {
             steps {
-                // Checkout the code from your GitHub repository
-                git branch: 'main', url: 'https://github.com/HengMouyLay/reactjsv3.git'
+                 git branch: 'main', url: 'https://github.com/HengMouyLay/reactjsv3.git'
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Build and Push Docker Image') {
             steps {
-                // Build the Docker image
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', DOCKER_HUB_CREDENTIALS) {
                         def customImage = docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
-                    }
-                }
-            }
-        }
-
-        stage('Push Docker Image') {
-            steps {
-                // Push the Docker image to Docker Hub
-                script {
-                    docker.withRegistry('https://registry.hub.docker.com', DOCKER_HUB_CREDENTIALS) {
-                        customImage.push("${IMAGE_TAG}")
+                        customImage.push()
                     }
                 }
             }
