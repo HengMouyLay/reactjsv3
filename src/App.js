@@ -7,7 +7,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-         <code> WELL COME Reactjs By Build Number Testing</code> and save to reload.
+         <code> WELL COME Reactjs By Build Number Testing one</code> and save to reload.
         </p>
         <a
           className="App-link"
