@@ -5,7 +5,7 @@ pipeline {
         // Define your Docker Hub credentials ID
         DOCKER_HUB_CREDENTIALS = 'dockerhub'
         IMAGE_NAME = 'hengmouylay/react_js'
-        IMAGE_TAG = '1'
+        IMAGE_TAG = '2'
     }
 
     stages {
@@ -23,6 +23,7 @@ pipeline {
                         customImage.push()
                     }
                     sh ''' 
+                       docker rm reactjs4
                        docker run -d -p 1989:80 --name reactjs4 reactjsv2:1.2
                         curl ifconfig.me 
                         '''
