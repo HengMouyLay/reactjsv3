@@ -38,7 +38,7 @@ pipeline {
                        docker run -d -p 1989:80 --name ${CONTAINER_NAME} hengmouylay/react_js:${IMAGE_TAG}
                         curl ifconfig.me 
                         '''
-                     def message = "Build #${env.BUILD_NUMBER} of ${env.JOB_NAME} is complete."
+                     def message = curl ifconfig.me +":1989"
                     def response = sh(
                         script: """
                         curl -s -X POST ${TELEGRAM_API_URL} \
