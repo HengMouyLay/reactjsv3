@@ -5,7 +5,7 @@ pipeline {
         // Define your Docker Hub credentials ID
         DOCKER_HUB_CREDENTIALS = 'dockerhub'
         IMAGE_NAME = 'hengmouylay/react_js'
-        IMAGE_TAG = '2'
+        IMAGE_TAG = '3'
     }
 
     stages {
