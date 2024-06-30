@@ -24,7 +24,7 @@ pipeline {
                         customImage.push()
                     }
                      def containerExists = sh(script: "docker ps -a --filter name=${CONTAINER_NAME} --format '{{.Names}}'", returnStatus: true)                    
-                    if (containerExists == 0) {
+                    if (containerExists == 1) {
                     sh '''      
                        docker stop ${CONTAINER_NAME}
                        docker rm ${CONTAINER_NAME}                       
