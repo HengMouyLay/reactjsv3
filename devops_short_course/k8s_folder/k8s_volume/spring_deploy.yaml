@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-deployment
+  # namespace: spring-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: spring-app
+  template:
+    metadata:
+      labels:
+        app: spring-app
+    spec:
+      containers:
+      - name: spring-app
+        image: muyleangin/fileupload:1.0
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: spring-volume
+          mountPath: /images
+      # volumes:
+      # - name: spring-volume
+      #   persistentVolumeClaim:
+      #     claimName: my-pvc
+        # hostPath:
+        #   path: /opt/spring/images    
+      volumes:
+      - name: spring-volume
+        hostPath:
+          path: /opt/spring/images   
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-service
+  # namespace: spring-app
+spec:
+  selector:
+    app: spring-app
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+    # nodePort: 30011
+  type: ClusterIP

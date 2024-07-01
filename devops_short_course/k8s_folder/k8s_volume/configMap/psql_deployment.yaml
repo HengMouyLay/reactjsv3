@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: psql-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: psql-app
+  template:
+    metadata:
+      labels:
+        app: psql-app
+    spec:
+      containers:
+        - name: psql-app
+          image: postgres:14
+          ports:
+            - containerPort: 5432
+          #with configMap call from psql_configMap.yaml
+          envFrom:
+            #configMapRef is used to call the configMap with normal not secret data
+            # - configMapRef:
+            #     #name of the configMap metadata
+            #     name: psql-config
+            #secretRef is used to call the configMap with secret data
+            - secretRef:
+                name: psql-secret
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: psql-secret
+type: Opaque
+data:
+  POSTGRES_USER: cG9zdGdyZXM=
+  POSTGRES_PASSWORD: cG9zdGdyZXM=
+  POSTGRES_DB: cG9zdGdyZXM=     
+#decode
+# echo -n 'cG9zdGdyZXM=' | base64 -d = postgres          
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: psql-service
+spec:
+  selector:
+    app: psql-app
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+      nodePort: 30015
+  type: NodePort                
+
