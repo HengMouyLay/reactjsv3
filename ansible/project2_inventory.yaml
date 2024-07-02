@@ -1,0 +1,11 @@
+- name: Update and upgrade all packages on Project2 servers
+  hosts: project2
+  become: yes
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Upgrade all packages
+      apt:
+        upgrade: dist
