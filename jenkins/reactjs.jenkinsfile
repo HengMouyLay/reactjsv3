@@ -3,7 +3,7 @@ pipeline {
     tools {
         // Ensure you have a 'gradle-8.7' tool configuration in Jenkins Global Tool Configuration
         // gradle 'gradle-8.7'
-        gradle 'gradle-4.4.1'
+        // gradle 'gradle-4.4.1'
     }
     environment {
         // Define your Docker Hub credentials ID
