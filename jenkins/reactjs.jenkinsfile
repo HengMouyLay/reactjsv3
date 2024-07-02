@@ -34,7 +34,7 @@ pipeline {
                 script {
                     sh '''
                     ansible --version 
-                    ansible -i ${WORKSPACE}/ansible/hosts all -m ping
+                    ansible -i ${WORKSPACE}/ansible/hosts.ini all -m ping
                     
                     '''
                     }
