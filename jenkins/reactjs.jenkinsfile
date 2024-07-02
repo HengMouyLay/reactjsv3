@@ -19,7 +19,6 @@ pipeline {
                  git branch: 'main', url: 'https://github.com/HengMouyLay/reactjsv3.git'
             }
         }
-
         stage('Build and Push To DockerHub Image') {
             steps {
                 script {
@@ -27,6 +26,19 @@ pipeline {
                         def customImage = docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
                         customImage.push()
                     }
+                }
+            }
+        }
+         stage('Deploy ReactJs with Kubernetes') {
+            steps {
+                script {
+                    sh '''
+                    ansible --version 
+                    ansible -i ${WORKSPACE}/ansible/hosts all -m ping
+                    
+                    '''
+                    }
+                    // ansible-playbook -i ${WORKSPACE}/ansible/hosts ${WORKSPACE}/ansible/deployspringwithk8s.yaml \
                 }
             }
         }
