@@ -40,7 +40,6 @@ pipeline {
                     }
                     // ansible-playbook -i ${WORKSPACE}/ansible/hosts ${WORKSPACE}/ansible/deployspringwithk8s.yaml \
                 }
-            }
         }
     }
     post {
