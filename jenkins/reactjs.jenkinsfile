@@ -27,37 +27,10 @@ pipeline {
                         def customImage = docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
                         customImage.push()
                     }
-                     def containerExists = sh(script: "docker ps -a --filter name=${CONTAINER_NAME} --format '{{.Names}}'", returnStatus: true) == 0                   
-                    if (containerExists) {
-                    sh '''      
-                       docker stop ${CONTAINER_NAME}
-                       docker rm ${CONTAINER_NAME}
-                         docker run -d -p 1989:80 --name ${CONTAINER_NAME} hengmouylay/react_js:${IMAGE_TAG}
-                        curl ifconfig.me 
-                        '''
-                       } 
-                    else{
-                     sh '''    
-                       docker run -d -p 1989:80 --name ${CONTAINER_NAME} hengmouylay/react_js:${IMAGE_TAG}
-                        curl ifconfig.me 
-                        '''
-                    }
-                    env.SERVICE_IP = sh(script: 'curl ifconfig.me', returnStdout: true).trim()                    
-                     def message = "Service is running at IP: ${env.SERVICE_IP} on port: 1989"
-                    def response = sh(
-                        script: """
-                        curl -s -X POST ${TELEGRAM_API_URL} \
-                        -d chat_id=${TELEGRAM_CHAT_ID} \
-                        -d text="${message}"
-                        """,
-                        returnStdout: true
-                    ).trim()
-                    echo "Telegram response: ${response}"
-}
+                }
             }
         }
     }
-
     post {
         success {
             echo 'Pipeline completed successfully!'
