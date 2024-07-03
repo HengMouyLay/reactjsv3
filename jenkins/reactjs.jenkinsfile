@@ -5,34 +5,34 @@ pipeline {
     //     // gradle 'gradle-8.7'
     //     // gradle 'gradle-4.4.1'
     // }
-    environment {
-        // Define your Docker Hub credentials ID
-        DOCKER_HUB_CREDENTIALS = 'dockerhub'
-        IMAGE_NAME = 'hengmouylay/react_js'
-        IMAGE_TAG = "${env.BUILD_NUMBER}"
-        CONTAINER_NAME = 'reactjs1' // Replace with your container name
+    // environment {
+    //     // Define your Docker Hub credentials ID
+    //     DOCKER_HUB_CREDENTIALS = 'dockerhub'
+    //     IMAGE_NAME = 'hengmouylay/react_js'
+    //     IMAGE_TAG = "${env.BUILD_NUMBER}"
+    //     CONTAINER_NAME = 'reactjs1' // Replace with your container name
 
-        TELEGRAM_TOKEN = '6964464848:AAE2euB4z54TWaameghHukIq61fw0zFgdvM'
-        TELEGRAM_CHAT_ID = '498606323'
-        TELEGRAM_API_URL = "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage"
-    }
+    //     TELEGRAM_TOKEN = '6964464848:AAE2euB4z54TWaameghHukIq61fw0zFgdvM'
+    //     TELEGRAM_CHAT_ID = '498606323'
+    //     TELEGRAM_API_URL = "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage"
+    // }
 
     stages {
-        stage('Clone Repository') {
-            steps {
-                 git branch: 'main', url: 'https://github.com/HengMouyLay/reactjsv3.git'
-            }
-        }
-        stage('Build and Push To DockerHub Image') {
-            steps {
-                script {
-                    docker.withRegistry('https://registry.hub.docker.com', DOCKER_HUB_CREDENTIALS) {
-                        def customImage = docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
-                        customImage.push()
-                    }
-                }
-            }
-        }
+        // stage('Clone Repository') {
+        //     steps {
+        //          git branch: 'main', url: 'https://github.com/HengMouyLay/reactjsv3.git'
+        //     }
+        // }
+        // stage('Build and Push To DockerHub Image') {
+        //     steps {
+        //         script {
+        //             docker.withRegistry('https://registry.hub.docker.com', DOCKER_HUB_CREDENTIALS) {
+        //                 def customImage = docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
+        //                 customImage.push()
+        //             }
+        //         }
+        //     }
+        // }
          stage('Deploy ReactJs with Kubernetes') {
             steps {
                 script {
