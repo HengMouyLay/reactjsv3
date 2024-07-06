@@ -38,7 +38,7 @@ pipeline {
                     sh '''
                     gradle --version
                     ansible --version 
-                    ansible -i ${WORKSPACE}/ansible/hosts.yaml all -m ping
+                    ansible -i ${WORKSPACE}/ansible/hosts.ini all -m ping
                     
                     '''
                     }
