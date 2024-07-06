@@ -17,11 +17,11 @@ pipeline {
     // }
 
     stages {
-        // stage('Clone Repository') {
-        //     steps {
-        //          git branch: 'main', url: 'https://github.com/HengMouyLay/reactjsv3.git'
-        //     }
-        // }
+        stage('Clone Repository') {
+            steps {
+                 git branch: 'main', url: 'https://github.com/HengMouyLay/reactjsv3.git'
+            }
+        }
         // stage('Build and Push To DockerHub Image') {
         //     steps {
         //         script {
