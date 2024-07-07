@@ -39,7 +39,7 @@ pipeline {
                     gradle --version
                     ansible --version 
                     ansible -i ${WORKSPACE}/ansible/hosts.ini all -m ping
-                    echo "Ansible is Succeful"
+                    pwd
                     '''
                     }
                     // ansible-playbook -i ${WORKSPACE}/ansible/hosts ${WORKSPACE}/ansible/deployspringwithk8s.yaml \
