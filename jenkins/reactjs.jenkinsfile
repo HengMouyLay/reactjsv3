@@ -39,6 +39,7 @@ pipeline {
                     gradle --version
                     ansible --version 
                     ansible -i ${WORKSPACE}/ansible/hosts.ini all -m ping
+                    ssh -i ./ansible/kube root@146.190.6.188
                     
                     '''
                     }
