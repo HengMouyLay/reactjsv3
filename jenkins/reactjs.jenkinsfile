@@ -41,6 +41,7 @@ pipeline {
                     ansible -i ${WORKSPACE}/ansible/hosts.ini all -m ping
                     pwd
                     ls
+                    curl ifconfig.me
                     '''
                     }
                     // ansible-playbook -i ${WORKSPACE}/ansible/hosts ${WORKSPACE}/ansible/deployspringwithk8s.yaml \
